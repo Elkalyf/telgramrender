@@ -24,9 +24,9 @@ app.use("/api/*", (req, res, next) => {
         res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
         res.header('Expires', '-1');
         res.header('Pragma', 'no-cache');
-    }
+    
     return next(new ReqError(400, "You are not logged in"));
-
+  }
   next();
 });
 
