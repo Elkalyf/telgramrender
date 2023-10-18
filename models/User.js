@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+//const bcrypt = require("bcrypt");
 
 const contactSchema = new mongoose.Schema({
   contactDetails: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
@@ -71,15 +71,17 @@ Schema.pre("save", async function (next) {
 
 Schema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
-  const hashedPassword = await bcrypt.hash(this.password, 12);
+  const hashedPassword = this.password; //= await bcrypt.hash(this.password, 12);
   this.password = hashedPassword;
   this.confirmPassword = undefined;
   next();
 });
 
-Schema.methods.checkPasswordValidity = async (
+/**Schema.methods.checkPasswordValidity = async (
   givenPassword,
   originalPassword
 ) => await bcrypt.compare(givenPassword, originalPassword);
+
+*/
 
 module.exports = mongoose.model("User", Schema);
