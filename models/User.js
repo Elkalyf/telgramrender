@@ -68,15 +68,14 @@ const Schema = new mongoose.Schema({
 Schema.pre("save", async function (next) {
   if (!this.$isNew) this.$ignore("password");
 });
-/**
+
 Schema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
-  const hashedPassword = await bcrypt.hash(this.password, 0);
-  this.password = hashedPassword;
+  //const hashedPassword = await bcrypt.hash(this.password, 0);
+  //this.password = hashedPassword;
   this.confirmPassword = undefined;
   next();
 });
- */
 
 Schema.methods.checkPasswordValidity = async (
   givenPassword,
