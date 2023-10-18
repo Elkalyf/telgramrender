@@ -68,7 +68,7 @@ const Schema = new mongoose.Schema({
 Schema.pre("save", async function (next) {
   if (!this.$isNew) this.$ignore("password");
 });
-/** 
+/**
 Schema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
   const hashedPassword = await bcrypt.hash(this.password, 0);
@@ -76,10 +76,12 @@ Schema.pre("save", async function (next) {
   this.confirmPassword = undefined;
   next();
 });
+ */
 
 Schema.methods.checkPasswordValidity = async (
   givenPassword,
   originalPassword
-) => await bcrypt.compare(givenPassword, originalPassword);
-*/
+) =>
+  await //bcrypt.compare(givenPassword, originalPassword);
+  compare(givenPassword, originalPassword);
 module.exports = mongoose.model("User", Schema);
