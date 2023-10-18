@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-//const bcrypt = require("bcrypt");
+const bcrypt = require("bcrypt");
 
 const contactSchema = new mongoose.Schema({
   contactDetails: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
@@ -77,11 +77,9 @@ Schema.pre("save", async function (next) {
   next();
 });
 
-/**Schema.methods.checkPasswordValidity = async (
+Schema.methods.checkPasswordValidity = async (
   givenPassword,
   originalPassword
 ) => await bcrypt.compare(givenPassword, originalPassword);
-
-*/
 
 module.exports = mongoose.model("User", Schema);
