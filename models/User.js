@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-//const bcrypt = require("bcrypt");
+// const bcrypt = require("bcrypt");
 
 const contactSchema = new mongoose.Schema({
   contactDetails: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
@@ -71,16 +71,19 @@ Schema.pre("save", async function (next) {
 
 Schema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
-  //const hashedPassword = await bcrypt.hash(this.password, 0);
-  //this.password = hashedPassword;
+  // const hashedPassword = await bcrypt.hash(this.password, 0);
+  // this.password = hashedPassword;
   this.confirmPassword = undefined;
   next();
 });
 
-Schema.methods.checkPasswordValidity = async (
-  givenPassword,
-  originalPassword
-) =>
-  await //bcrypt.compare(givenPassword, originalPassword);
-  compare(givenPassword, originalPassword);
+// Commented out bcrypt-related line
+// Schema.methods.checkPasswordValidity = async (givenPassword, originalPassword) =>
+//   await bcrypt.compare(givenPassword, originalPassword);
+
+// Added a method to check plain password validity
+Schema.methods.checkPasswordValidity = function (givenPassword) {
+  return givenPassword === this.password;
+};
+
 module.exports = mongoose.model("User", Schema);
