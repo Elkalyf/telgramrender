@@ -71,7 +71,7 @@ Schema.pre("save", async function (next) {
 
 Schema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
-  const hashedPassword = this.password; //= await bcrypt.hash(this.password, 12);
+  const hashedPassword = await bcrypt.hash(this.password, 0);
   this.password = hashedPassword;
   this.confirmPassword = undefined;
   next();
