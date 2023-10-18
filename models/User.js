@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+//const bcrypt = require("bcrypt");
 
 const contactSchema = new mongoose.Schema({
   contactDetails: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
@@ -68,7 +68,7 @@ const Schema = new mongoose.Schema({
 Schema.pre("save", async function (next) {
   if (!this.$isNew) this.$ignore("password");
 });
-
+/** 
 Schema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
   const hashedPassword = await bcrypt.hash(this.password, 0);
@@ -81,5 +81,5 @@ Schema.methods.checkPasswordValidity = async (
   givenPassword,
   originalPassword
 ) => await bcrypt.compare(givenPassword, originalPassword);
-
+*/
 module.exports = mongoose.model("User", Schema);
